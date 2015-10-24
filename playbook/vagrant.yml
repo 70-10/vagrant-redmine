@@ -1,0 +1,14 @@
+---
+  - hosts: localvm
+    gather_facts: no
+    tags: localvm
+    roles:
+      - ansible
+      - common/bash_profile
+      - common/packages
+      - middleware/rbenv
+      - middleware/ruby
+      - middleware/mysql
+      - middleware/apache
+      - middleware/redmine
+      - redmine/mysql

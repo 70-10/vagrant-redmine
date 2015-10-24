@@ -1,0 +1,7 @@
+stage: localvm
+
+ruby:
+  version: 2.2.3
+
+redmine:
+  version: 2.6.0

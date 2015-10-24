@@ -1,0 +1,25 @@
+- stat:
+    path: ~/.rbenv
+  register: rbenv_dir
+
+- stat:
+    path: ~/.rbenv/plugins/ruby-build
+  register: rubybuild_dir
+
+- name: git clone rbenv
+  git:
+    repo: https://github.com/sstephenson/rbenv.git
+    dest: ~/.rbenv
+  when: not rbenv_dir.stat.exists
+
+- name: git clone ruby-build
+  git:
+    repo: https://github.com/sstephenson/ruby-build.git
+    dest: ~/.rbenv/plugins/ruby-build
+  when: not rubybuild_dir.stat.exists
+
+- name: add rbenv.sh
+  copy:
+    src: rbenv.sh
+    dest: ~/.bash.d/rbenv.sh
+    mode: "755"

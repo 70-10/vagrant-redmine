@@ -1,0 +1,11 @@
+- name: fragment bash_profile
+  file:
+    dest: ~/.bash.d/
+    state: directory
+
+- name: bash_profile setting. read ~/.bash.d
+  lineinfile:
+    dest: ~/.bash_profile
+    insertafter: EOF
+    line: 'if [ -d "${HOME}/.bash.d" ]; then for f in "${HOME}"/.bash.d/* ; do [ -x "$f" ] && . "$f"; done; unset f; fi;'
+    create: yes

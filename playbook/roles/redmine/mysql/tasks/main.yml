@@ -1,0 +1,13 @@
+- name: create redmine database
+  mysql_db:
+    name: redmine
+    state: present
+    encoding: utf8
+
+- name: create redmine user
+  mysql_user:
+    name: redmine
+    host: 127.0.0.1
+    password: redmine
+    priv: "redmine.*:ALL"
+    state: present

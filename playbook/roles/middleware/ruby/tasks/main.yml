@@ -1,0 +1,15 @@
+# install {{ruby.version}} for rbenv
+- stat:
+    path: "~/.rbenv/versions/{{ ruby.version }}"
+  register: ruby_dir
+
+- name: install ruby {{ ruby.version }}
+  shell: "./rbenv install {{ ruby.version }}"
+  args:
+    chdir: ~/.rbenv/bin
+  when: not ruby_dir.stat.exists
+
+- name: rbenv global {{ ruby.version }}
+  shell: "./rbenv global {{ ruby.version }}; ./rbenv rehash;"
+  args:
+    chdir: ~/.rbenv/bin

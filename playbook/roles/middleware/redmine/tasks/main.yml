@@ -1,0 +1,23 @@
+- stat:
+    path: "/tmp/redmine-{{ redmine.version }}.tar.gz"
+  register: redmine_file
+
+- name: download redmine-{{ redmine.version }}
+  get_url:
+    url: "http://www.redmine.org/releases/redmine-{{ redmine.version }}.tar.gz"
+    dest: "/tmp/redmine-{{ redmine.version }}.tar.gz"
+  when: not redmine_file.stat.exists
+
+- name: unarchive redmine-{{ redmine.version }}
+  sudo: yes
+  unarchive:
+    src: "/tmp/redmine-{{ redmine.version }}.tar.gz"
+    dest: /opt
+    copy: no
+
+- name: symlink
+  sudo: yes
+  file:
+    src: "/opt/redmine-{{ redmine.version }}"
+    dest: /opt/redmine
+    state: link

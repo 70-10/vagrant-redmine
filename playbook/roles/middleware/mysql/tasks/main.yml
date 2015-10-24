@@ -1,0 +1,21 @@
+- name: install mysql
+  sudo: yes
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - mysql
+    - mysql-server
+
+- name: add my.cnf
+  sudo: yes
+  copy:
+    src: my.cnf
+    dest: /etc/my.cnf
+
+- name: start mysqld
+  sudo: yes
+  service:
+    name: mysqld
+    state: started
+    enabled: yes
