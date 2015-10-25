@@ -5,7 +5,6 @@
     roles:
       - ansible
       - common/bash_profile
-      - common/packages
       - middleware/rbenv
       - middleware/ruby
       - middleware/mysql
